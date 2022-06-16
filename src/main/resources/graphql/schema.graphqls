@@ -1,0 +1,10 @@
+type Author {
+    id: ID!
+    firstName: String
+    lastName: String
+}
+
+
+type Query {
+   getAuthors: [Author]
+}

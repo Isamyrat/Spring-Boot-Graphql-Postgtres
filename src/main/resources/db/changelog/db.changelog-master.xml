@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="CREATE_AUTHOR_TABLE" author="gurbanov">
+        <createTable tableName="AUTHOR">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="PK_AUTHOR_ID" nullable="false"/>
+            </column>
+            <column name="FIRSTNAME" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LASTNAME" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="CREATE_BOOK_TABLE" author="gurbanov">
+        <createTable tableName="BOOK">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="PK_BOOK_ID" nullable="false"/>
+            </column>
+            <column name="TITLE" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PAGES" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AUTHOR_ID" type="bigint">
+                <constraints references="AUTHOR(ID)" foreignKeyName="FK_AUTHORS_ID" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="INSERT_DEFAULT_AUTHOR_VALUES" author="gurbanov">
+        <sql>
+            INSERT INTO AUTHOR (ID, FIRSTNAME, LASTNAME)
+            VALUES (1, 'Anton', 'Chehov'),
+                   (2, 'Sergey', 'Esenin');
+        </sql>
+    </changeSet>
+    <changeSet id="INSERT_DEFAULT_BOOK_VALUES" author="gurbanov">
+        <sql>
+            INSERT INTO BOOK (ID, TITLE, PAGES,AUTHOR_ID)
+            VALUES (1, 'Kapitanskaya docka', 455, 1),
+                   (2, 'Evgeniy onegin', 80, 2);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
